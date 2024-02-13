@@ -40,7 +40,12 @@ int main() {
 
         // beggining tokenizing by spaces
         char *tokenizer = strtok(input, " ");
-        char *user_cmd = tokenizer;
+        if (tokenizer != NULL){
+            char *user_cmd = tokenizer;
+        }
+
+        tokenizer = strtok(NULL, " ");
+        char *user_arg_one = tokenizer;
 	}
 }
 
