@@ -35,6 +35,12 @@ int main() {
 	while(1) {
 		printf("Enter command: ");
 		// complete implementations
+        char input[100];
+        fgets(input, sizeof(input),stdin);
+
+        // beggining tokenizing by spaces
+        char *tokenizer = strtok(input, " ");
+        char *user_cmd = tokenizer;
 	}
 }
 
