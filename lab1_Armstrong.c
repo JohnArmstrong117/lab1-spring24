@@ -28,30 +28,6 @@ int initialize() {
 	printf("Filesystem initialized!\n");
 }
 
-int main() {
-	initialize();
-	// other initialization as needed
-
-	while(1) {
-		printf("Enter command: ");
-		// complete implementations
-        char input[100];
-        fgets(input, sizeof(input),stdin);
-
-        // beginning tokenizing by spaces
-        char *tokenizer = strtok(input, " ");
-        if (tokenizer != NULL){
-            char *user_cmd = tokenizer;
-        }
-        else{
-            continue; //next iteration of loop if no command is entered
-        }
-
-        tokenizer = strtok(NULL, " ");
-        char *user_arg_one = tokenizer;
-	}
-}
-
 int find_command(char* user_command)
 {
     int i = 0;
@@ -95,3 +71,51 @@ void ex_save(struct node *cur_dir, char *args){
 void ex_quit(){
     //TODO: implement save functionality
 }
+
+int main() {
+	initialize();
+	// other initialization as needed
+
+	while(1) {
+		printf("Enter command: ");
+		// complete implementations
+        char input[100];
+        fgets(input, sizeof(input),stdin);
+
+        // beginning tokenizing by spaces
+        char *tokenizer = strtok(input, " ");
+        char *user_cmd;
+        if (tokenizer != NULL){
+            user_cmd = tokenizer;
+        }
+        else{
+            continue; //next iteration of loop if no command is entered
+        }
+
+        tokenizer = strtok(NULL, " ");
+        char *user_arg_one = tokenizer;
+
+        // Verify input and find command
+        int cmd_index = find_command(user_cmd);
+        if (cmd_index == -1){
+            printf("Error: Command Not Found!");
+            continue;
+        }
+
+        //TODO: implement calling the necessary functions
+        switch(cmd_index){
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            default:
+                printf("Error: Command not recognized.");
+                continue;
+        }
+	}
+}
+
