@@ -38,10 +38,13 @@ int main() {
         char input[100];
         fgets(input, sizeof(input),stdin);
 
-        // beggining tokenizing by spaces
+        // beginning tokenizing by spaces
         char *tokenizer = strtok(input, " ");
         if (tokenizer != NULL){
             char *user_cmd = tokenizer;
+        }
+        else{
+            continue; //next iteration of loop if no command is entered
         }
 
         tokenizer = strtok(NULL, " ");
@@ -61,3 +64,34 @@ int find_command(char* user_command)
     return -1;
 }
 
+void ex_mkdir(struct node *cur_dir, char *args){
+    //TODO: implement mkdir functionality
+}
+
+void ex_rmdir(struct node *cur_dir, char *args){
+    //TODO: implement rmdir functionality
+}
+
+void ex_ls(struct node *cur_dir){
+    //TODO: implement ls functionality
+}
+
+void ex_cd(struct node *cur_dir, char *args){
+    //TODO: implement cd functionality
+}
+
+void ex_pwd(struct node *cur_dir){
+    //TODO: implement pwd functionality
+}
+
+void ex_reload(struct node *cur_dir, char *args){
+    //TODO: implement reload functionality
+}
+
+void ex_save(struct node *cur_dir, char *args){
+    //TODO: implement save functionality
+}
+
+void ex_quit(){
+    //TODO: implement save functionality
+}
