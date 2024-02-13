@@ -1,10 +1,16 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f8f126cb218cc05b26708df96ec515c762c3bdb7
 # Created by https://www.toptal.com/developers/gitignore/api/clion,cmake,c
 # Edit at https://www.toptal.com/developers/gitignore?templates=clion,cmake,c
 
 ### C ###
+<<<<<<< HEAD
 =======
 >>>>>>> 18fe390521e1eef8bac56bdc3e6c7a1857d0be6c
+=======
+>>>>>>> f8f126cb218cc05b26708df96ec515c762c3bdb7
 # Prerequisites
 *.d
 
@@ -58,6 +64,9 @@ Module.symvers
 Mkfile.old
 dkms.conf
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f8f126cb218cc05b26708df96ec515c762c3bdb7
 
 ### CLion ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
@@ -190,5 +199,8 @@ _deps
 *-prefix/
 
 # End of https://www.toptal.com/developers/gitignore/api/clion,cmake,c
+<<<<<<< HEAD
 =======
 >>>>>>> 18fe390521e1eef8bac56bdc3e6c7a1857d0be6c
+=======
+>>>>>>> f8f126cb218cc05b26708df96ec515c762c3bdb7
