@@ -40,31 +40,59 @@ int find_command(char* user_command)
     return -1;
 }
 
-void ex_mkdir(struct node *cur_dir, char *args){
+NODE* findNode(NODE* search_root, char* path){
+    NODE *current = search_root;
+    char* tokenizer = strtok(path, "/");
+
+    while(tokenizer != NULL){
+        if(strcmp(current->name,tokenizer)==0){
+            tokenizer = strtok(NULL,"/");
+            //does not move to child if token is found and next token to search is NULL
+            //this keeps it on the correct found node
+            if (tokenizer != NULL){
+                //Token found move to child nodes
+                current = current->child;
+            }
+        }
+        else{
+            //token not found yet move to siblings
+            current = current->sibling;
+        }
+
+        if (current == NULL){
+            // path does not exist
+            return NULL;
+        }
+    }
+    //returns found node or returns null if not found
+    return current;
+}
+
+void ex_mkdir(NODE *cur_dir, char *args){
     //TODO: implement mkdir functionality
 }
 
-void ex_rmdir(struct node *cur_dir, char *args){
+void ex_rmdir(NODE *cur_dir, char *args){
     //TODO: implement rmdir functionality
 }
 
-void ex_ls(struct node *cur_dir){
+void ex_ls(NODE *cur_dir){
     //TODO: implement ls functionality
 }
 
-void ex_cd(struct node *cur_dir, char *args){
+void ex_cd(NODE *cur_dir, char *args){
     //TODO: implement cd functionality
 }
 
-void ex_pwd(struct node *cur_dir){
+void ex_pwd(NODE *cur_dir){
     //TODO: implement pwd functionality
 }
 
-void ex_reload(struct node *cur_dir, char *args){
+void ex_reload(NODE *cur_dir, char *args){
     //TODO: implement reload functionality
 }
 
-void ex_save(struct node *cur_dir, char *args){
+void ex_save(NODE *cur_dir, char *args){
     //TODO: implement save functionality
 }
 
