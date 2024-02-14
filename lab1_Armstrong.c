@@ -68,8 +68,75 @@ NODE* find_node(NODE* search_root, char* path){
     return current;
 }
 
-void ex_mkdir(NODE *cur_dir, char *args){
-    //TODO: implement mkdir functionality
+void separate_path(const char *path, char *dirname, char *basename){
+    const char *final_slash = strrchr(path, '/');
+    if (final_slash != NULL){
+        int index = (int)(final_slash - path);
+        strncpy(dirname, path, index);
+        dirname[index] = '\0';
+        strcpy(basename, final_slash + 1);
+    }else{
+        strcpy(basename, path);
+        dirname[0] = '\0';
+    }
+}
+
+void ex_mkdir(NODE *cur_dir, const char *args){
+    int args_len = (int)strlen(args);
+    char pathname[100];
+    char basename[100];
+    separate_path(args, pathname, basename);
+    if (pathname[0] == '\0') {
+        NODE *path_node = find_node(cur_dir, pathname);
+        if (path_node == NULL){
+            printf("ERROR: Path not found!\n");
+            return;
+        }
+        if (path_node->type == 'D'){
+            if (path_node->child == NULL){
+                //creating new node
+                NODE *new_node;
+                new_node = (NODE*)malloc(sizeof(NODE));
+                if (path_node == NULL){
+                    printf("Memory Allocation Failed.\n");
+                    return;
+                }
+                strcpy(new_node->name, basename);
+                new_node->type = 'D';
+                new_node->child = NULL;
+                new_node->parent = path_node;
+                new_node->sibling = NULL;
+                path_node->child = new_node;
+            }else{
+                NODE *search_node = path_node->child;
+                while (search_node != NULL){
+                    if (strcmp(search_node->name, basename) == 0){
+                        printf("Error: Directory already exists.");
+                        return;
+                    }
+                    if (search_node->sibling == NULL){
+                        //Make new node
+                        NODE *new_node;
+                        new_node = (NODE*)malloc(sizeof(NODE));
+                        if (path_node == NULL){
+                            printf("Memory Allocation Failed.\n");
+                            return;
+                        }
+                        strcpy(new_node->name, basename);
+                        new_node->type = 'D';
+                        new_node->child = NULL;
+                        new_node->parent = path_node;
+                        new_node->sibling = NULL;
+                        search_node->sibling = new_node;
+                        break;
+                    }
+                    search_node = search_node->sibling;
+                }
+            }
+        }else{
+            printf("ERROR: Not a Directory\n");
+        }
+    }
 }
 
 void ex_rmdir(NODE *cur_dir, char *args){
@@ -85,7 +152,7 @@ void ex_ls(NODE *cur_dir){
         return;
     }
     while(current != NULL){
-        printf("%s", current->type + ' ' + current->name);
+        printf("%c %s\n", current->type, current->name);
         current = current->sibling;
     }
 }
@@ -188,7 +255,15 @@ int main() {
         //TODO: implement calling the necessary functions
         switch(cmd_index){
             case 0:
-                //mkdir
+                if (user_arg_one != NULL){
+                    if (user_arg_one[0] == '/'){
+                        ex_mkdir(root, user_arg_one);
+                    } else {
+                        ex_mkdir(cwd, user_arg_one);
+                    }
+                }else{
+                    printf("Error: NO ARGUMENTS");
+                }
                 break;
             case 1:
                 //rmdir
