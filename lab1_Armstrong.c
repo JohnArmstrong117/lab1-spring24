@@ -179,18 +179,14 @@ void ex_cd(NODE *cur_dir, char *args){
 }
 
 void pwd_recursive(NODE *pwd_root){
-    if (pwd_root == NULL){
+    if (pwd_root == NULL)
         return;
-    }
-
-    if (pwd_root->parent != root){
+    if (strcmp(pwd_root->parent->name, "/")==0){
+        printf("/%s",pwd_root->name);
+    }else{
         pwd_recursive(pwd_root->parent);
-        printf("/");
-    }
-    printf("%s", pwd_root->name);
-    if (pwd_root->child != NULL){
-        printf("/");
-        pwd_recursive(pwd_root->child);
+
+        printf("/%s", pwd_root->name);
     }
 }
 
