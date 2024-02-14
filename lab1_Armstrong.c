@@ -214,6 +214,10 @@ void ex_cd(NODE *cur_dir, char *args){
         cwd = root;
         return;
     }
+    if (strcmp(args, "..")==0){
+        cwd = cwd->parent;
+        return;
+    }
     if (args[0] == '/'){
         if (root->child != NULL) {
             temp = find_node(root->child, args + 1);
@@ -250,6 +254,10 @@ void pwd_recursive(NODE *pwd_root){
 }
 
 void ex_pwd(NODE *cur_dir){
+    if (cwd == root){
+        printf("/\n");
+        return;
+    }
     pwd_recursive(cur_dir);
     printf("\n");
 }
