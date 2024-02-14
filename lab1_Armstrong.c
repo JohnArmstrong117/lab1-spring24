@@ -140,7 +140,30 @@ void ex_mkdir(NODE *cur_dir, const char *args){
 }
 
 void ex_rmdir(NODE *cur_dir, char *args){
-    //TODO: implement rmdir functionality
+    NODE* temp;
+    if (args[0] == '/'){
+        if (root->child != NULL) {
+            temp = find_node(root->child, args + 1);
+        }else{
+            printf("ERROR: Root has no child directories.");
+        }
+    } else {
+        if(cwd != root) {
+            temp = find_node(cwd->child, args);
+        }else{
+            temp = find_node(root->child, args);
+        }
+    }
+
+    if(temp == NULL){
+        printf("Error: Not a valid directory.\n");
+    } else if (temp->type == 'F'){
+        printf("Not a directory\n");
+    } else {
+        temp->parent->child = temp->sibling;
+        free(temp->child);
+        free(temp);
+    }
 }
 
 void ex_ls(NODE *cur_dir){
@@ -159,6 +182,10 @@ void ex_ls(NODE *cur_dir){
 
 void ex_cd(NODE *cur_dir, char *args){
     NODE* temp;
+    if (args == NULL){
+        cwd = root;
+        return;
+    }
     if (args[0] == '/'){
         if (root->child != NULL) {
             temp = find_node(root->child, args + 1);
@@ -166,7 +193,11 @@ void ex_cd(NODE *cur_dir, char *args){
             printf("ERROR: Root has no child directories.");
         }
     } else {
-        temp = find_node(cwd, args+1);
+        if(cwd != root) {
+            temp = find_node(cwd->child, args);
+        }else{
+            temp = find_node(root->child, args);
+        }
     }
 
     if(temp == NULL){
@@ -267,6 +298,7 @@ int main() {
                 break;
             case 1:
                 //rmdir
+                ex_rmdir(cwd, user_arg_one);
                 break;
             case 2:
                 //ls
