@@ -77,7 +77,17 @@ void ex_rmdir(NODE *cur_dir, char *args){
 }
 
 void ex_ls(NODE *cur_dir){
-    //TODO: implement ls functionality
+    NODE *current = NULL;
+    if (cur_dir != NULL){
+        current = cur_dir->child;
+    }
+    if (current == NULL){
+        return;
+    }
+    while(current != NULL){
+        printf("%s", current->type + ' ' + current->name);
+        current = current->sibling;
+    }
 }
 
 void ex_cd(NODE *cur_dir, char *args){
@@ -89,9 +99,9 @@ void ex_cd(NODE *cur_dir, char *args){
     }
 
     if(temp == NULL){
-        printf("Error: Not a valid directory.");
+        printf("Error: Not a valid directory.\n");
     } else if (temp->type == 'F'){
-        printf("Not a directory");
+        printf("Not a directory\n");
     } else {
         cwd = temp;
     }
@@ -139,7 +149,7 @@ int main() {
         // Verify input and find command
         int cmd_index = find_command(user_cmd);
         if (cmd_index == -1){
-            printf("Error: Command Not Found!");
+            printf("Error: Command Not Found!\n");
             continue;
         }
 
@@ -151,6 +161,7 @@ int main() {
                 //rmdir
             case 2:
                 //ls
+                ex_ls(cwd);
             case 3:
                 //cd
                 ex_cd(cwd,user_arg_one);
@@ -163,7 +174,7 @@ int main() {
             case 7:
                 //quit
             default:
-                printf("Error: Command not recognized.");
+                printf("Error: Command not recognized.\n");
                 continue;
         }
 	}
