@@ -160,7 +160,11 @@ void ex_ls(NODE *cur_dir){
 void ex_cd(NODE *cur_dir, char *args){
     NODE* temp;
     if (args[0] == '/'){
-        temp = find_node(root, args+1);
+        if (root->child != NULL) {
+            temp = find_node(root->child, args + 1);
+        }else{
+            printf("ERROR: Root has no child directories.");
+        }
     } else {
         temp = find_node(cwd, args+1);
     }
