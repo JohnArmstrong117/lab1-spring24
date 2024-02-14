@@ -270,8 +270,21 @@ void ex_save(NODE *cur_dir, char *args){
     //TODO: implement save functionality
 }
 
+void quit_recursive(NODE *current){
+    if (current->child != NULL){
+        quit_recursive(current->child);
+    }
+    if (current->sibling != NULL){
+        quit_recursive(current->sibling);
+    }
+    free(current);
+}
+
 void ex_quit(){
-    //TODO: implement save functionality
+    quit_recursive(root);
+    free(root);
+    free(cwd);
+    exit(0);
 }
 
 void ex_create(NODE *cur_dir, char *args){
