@@ -264,10 +264,12 @@ void ex_pwd(NODE *cur_dir){
 
 void ex_reload(NODE *cur_dir, char *args){
     //TODO: implement reload functionality
+    //I ran out of time tro implement this portion
 }
 
 void ex_save(NODE *cur_dir, char *args){
     //TODO: implement save functionality
+    //I ran out of time to implement this portion
 }
 
 void quit_recursive(NODE *current){
