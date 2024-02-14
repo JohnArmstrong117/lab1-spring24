@@ -107,8 +107,25 @@ void ex_cd(NODE *cur_dir, char *args){
     }
 }
 
+void pwd_recursive(NODE *pwd_root){
+    if (pwd_root == NULL){
+        return;
+    }
+
+    if (pwd_root->parent != root){
+        pwd_recursive(pwd_root->parent);
+        printf("/");
+    }
+    printf("%s", pwd_root->name);
+    if (pwd_root->child != NULL){
+        printf("/");
+        pwd_recursive(pwd_root->child);
+    }
+}
+
 void ex_pwd(NODE *cur_dir){
-    //TODO: implement pwd functionality
+    pwd_recursive(cur_dir);
+    printf("\n");
 }
 
 void ex_reload(NODE *cur_dir, char *args){
@@ -167,6 +184,7 @@ int main() {
                 ex_cd(cwd,user_arg_one);
             case 4:
                 //pwd
+                ex_pwd(cwd);
             case 5:
                 //reload
             case 6:
