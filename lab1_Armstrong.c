@@ -154,7 +154,15 @@ int main() {
         char *tokenizer = strtok(input, " ");
         char *user_cmd;
         if (tokenizer != NULL){
+            //if no input continue with loop
+            if (tokenizer[0] == '\n')
+                continue;
             user_cmd = tokenizer;
+            //Removing newline at end of input if it is there
+            int cmd_length = (int)strlen(user_cmd);
+            if (user_cmd[cmd_length-1] == '\n'){
+                user_cmd[cmd_length-1] = '\0';
+            }
         }
         else{
             continue; //next iteration of loop if no command is entered
@@ -162,6 +170,13 @@ int main() {
 
         tokenizer = strtok(NULL, " ");
         char *user_arg_one = tokenizer;
+        if(user_arg_one != NULL) {
+            //removing newline if it exists
+            int user_arg_one_length = (int) strlen(user_arg_one);
+            if (user_arg_one_length > 0 && user_arg_one[user_arg_one_length - 1] == '\n') {
+                user_arg_one[user_arg_one_length - 1] = '\0';
+            }
+        }
 
         // Verify input and find command
         int cmd_index = find_command(user_cmd);
@@ -174,23 +189,31 @@ int main() {
         switch(cmd_index){
             case 0:
                 //mkdir
+                break;
             case 1:
                 //rmdir
+                break;
             case 2:
                 //ls
                 ex_ls(cwd);
+                break;
             case 3:
                 //cd
                 ex_cd(cwd,user_arg_one);
+                break;
             case 4:
                 //pwd
                 ex_pwd(cwd);
+                break;
             case 5:
                 //reload
+                break;
             case 6:
                 //save
+                break;
             case 7:
                 //quit
+                break;
             default:
                 printf("Error: Command not recognized.\n");
                 continue;
