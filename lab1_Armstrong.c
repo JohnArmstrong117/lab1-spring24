@@ -40,7 +40,7 @@ int find_command(char* user_command)
     return -1;
 }
 
-NODE* findNode(NODE* search_root, char* path){
+NODE* find_node(NODE* search_root, char* path){
     NODE *current = search_root;
     char* tokenizer = strtok(path, "/");
 
@@ -81,7 +81,20 @@ void ex_ls(NODE *cur_dir){
 }
 
 void ex_cd(NODE *cur_dir, char *args){
-    //TODO: implement cd functionality
+    NODE* temp;
+    if (args[0] == '/'){
+        temp = find_node(root, args+1);
+    } else {
+        temp = find_node(cwd, args+1);
+    }
+
+    if(temp == NULL){
+        printf("Error: Not a valid directory.");
+    } else if (temp->type == 'F'){
+        printf("Not a directory");
+    } else {
+        cwd = temp;
+    }
 }
 
 void ex_pwd(NODE *cur_dir){
@@ -133,13 +146,22 @@ int main() {
         //TODO: implement calling the necessary functions
         switch(cmd_index){
             case 0:
+                //mkdir
             case 1:
+                //rmdir
             case 2:
+                //ls
             case 3:
+                //cd
+                ex_cd(cwd,user_arg_one);
             case 4:
+                //pwd
             case 5:
+                //reload
             case 6:
+                //save
             case 7:
+                //quit
             default:
                 printf("Error: Command not recognized.");
                 continue;
